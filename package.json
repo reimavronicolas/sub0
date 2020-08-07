@@ -1,10 +1,10 @@
 {
   "name": "sub0",
   "version": "0.1.0",
-  "description": "Clean minimalistic interface to automate the unsubscription of RxJS observables",
+  "description": "Clean minimalistic library to automate the unsubscription of RxJS like observables | No dependencies",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "dependencies": {
+  "devDependencies": {
     "@types/node": "^14.0.27",
     "alsatian": "^3.2.1",
     "ts-loader": "^8.0.2",
