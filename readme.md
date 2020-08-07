@@ -6,7 +6,7 @@ dependency on RxJS. Anything with a subscribe/unsubscribe interface will also wo
 ## Installation
 
 ```bash
-npm install subsink --save
+npm install sub0 --save
 ```
 
 ## Usage

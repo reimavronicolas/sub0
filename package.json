@@ -1,6 +1,6 @@
 {
   "name": "sub0",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "Clean minimalistic library to automate the unsubscription of RxJS like observables | No dependencies",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
