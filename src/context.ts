@@ -1,5 +1,5 @@
 import { SubscriptionPool } from './subscriptionPool';
-import { Strategy } from "./types";
+import { Strategy, Subscribable } from "./types";
 import { angularDefaultStrategy } from "./strategies";
 
 export namespace context {
@@ -21,6 +21,12 @@ export namespace context {
     }));
 
     return pool;
+  }
+
+  export function observe<T>(component: any): (observable: Subscribable<T>) => Subscribable<T> {
+    const pool = extend(component);
+
+    return pool.observe.bind(pool);
   }
 
   function proxy<T>(target: any, fn: (original: () => void) => void): void {
