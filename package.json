@@ -1,0 +1,29 @@
+{
+  "name": "sub0",
+  "version": "0.1.0",
+  "description": "Clean minimalistic interface to automate the unsubscription of RxJS observables",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "dependencies": {
+    "@types/node": "^14.0.27",
+    "alsatian": "^3.2.1",
+    "ts-loader": "^8.0.2",
+    "ts-node": "^8.10.2",
+    "typescript": "^3.9.7",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12"
+  },
+  "scripts": {
+    "build:dev": "rm -rf ./dist && webpack --config ./webpack.config.js --mode development",
+    "build:prod": "rm -rf ./dist && webpack --config ./webpack.config.js --mode production",
+    "test": "ts-node --project ./tsconfig.json ./run-test"
+  },
+  "keywords": [
+    "unsubscribe",
+    "rxjs",
+    "angular",
+    "observable"
+  ],
+  "author": "Rei Mavronicolas",
+  "license": "ISC"
+}
