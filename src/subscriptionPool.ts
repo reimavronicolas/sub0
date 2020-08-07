@@ -40,7 +40,6 @@ export class SubscriptionPool {
   }
 
   public unsubscribeAll(): void {
-    console.log('unsubscribeAll()!', this.subscriptions.length);
     this.subscriptions.forEach(_ => _.unsubscribe());
     this.subscriptions = [];
   }
