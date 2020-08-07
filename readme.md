@@ -11,6 +11,33 @@ npm install sub0 --save
 
 ## Usage
 
+### Subscription syntax
+
+There are 3 ways to register a subscription:
+
+```ts
+import { context } from 'sub0';
+...
+
+export class HelloWorldComponent implements OnInit {
+  private sub = context.extend(this);
+
+  constructor(private store: Store<AppState>) {}
+
+  public ngOnInit() {
+    // 1. Using observe()
+    this.sub.observe(this.store.select(selectHelloWorld)).subscribe(value => console.log(value));
+   
+    // 2. Using add()
+    this.sub.add(this.store.select(selectHelloWorld)).subscribe(value => console.log(value));
+
+    // 3. Using subscribe()
+    this.sub.subscribe(this.store.select(selectHelloWorld), value => console.log(value));
+
+  }
+}
+```
+
 ### Configuration
 
 By default sub0 is configured to extend the Angular `ngOnDestroy` lifecyle hook in order to unsubscribe from all 
@@ -38,31 +65,4 @@ hooks dynamically.
 
 ```ts
 context.useStrategy(angularIvyEagerLifecycleHooksStrategy);
-```
-
-### Subscription syntax
-
-There are 3 ways to register a subscription. Each one is identical 
-
-```ts
-import { context } from 'sub0';
-...
-
-export class HelloWorldComponent implements OnInit {
-  private sub = context.extend(this);
-
-  constructor(private store: Store<AppState>) {}
-
-  public ngOnInit() {
-    // 1. Using observe()
-    this.sub.observe(this.store.select(selectHelloWorld)).subscribe(value => console.log(value));
-   
-    // 2. Using add()
-    this.sub.add(this.store.select(selectHelloWorld)).subscribe(value => console.log(value));
-
-    // 3. Using subscribe()
-    this.sub.subscribe(this.store.select(selectHelloWorld), value => console.log(value));
-
-  }
-}
 ```
