@@ -1,9 +1,10 @@
 export {
-    OnDestroy,
-    Subscribable,
-    Unsubscribable,
-} from './interfaces'
+  Subscribable,
+  Unsubscribable,
+  Strategy,
+} from './types'
 
 export { SubscriptionPool } from './subscriptionPool'
 export { context } from './context'
-export { Observable } from './observable';
+export { angularDefaultStrategy, angularIvyEagerLifecycleHooksStrategy } from './strategies'
+
