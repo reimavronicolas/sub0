@@ -1,9 +1,12 @@
 {
   "name": "sub0",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Clean minimalistic library to automate the unsubscription of RxJS like observables | No dependencies",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "repository": {
+    "url": "https://github.com/reimavronicolas/sub0"
+  },
   "devDependencies": {
     "@types/node": "^14.0.27",
     "alsatian": "^3.2.1",
