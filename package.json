@@ -17,8 +17,10 @@
     "webpack-cli": "^3.3.12"
   },
   "scripts": {
+    "clean": "shx rm -rf dist-umd dist-commonjs dist-esmodule",
     "build:dev": "rm -rf ./dist && webpack --config ./webpack.config.js --mode development",
     "build:prod": "rm -rf ./dist && webpack --config ./webpack.config.js --mode production",
+    "build:cool": "npm run clean && tsc && tsc -m es6 --outDir dist && webpack",
     "test": "ts-node --project ./tsconfig.json ./run-test"
   },
   "keywords": [
@@ -28,5 +30,8 @@
     "observable"
   ],
   "author": "Rei Mavronicolas",
-  "license": "ISC"
+  "license": "ISC",
+  "files": [
+    "dist"
+  ]
 }

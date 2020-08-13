@@ -4,10 +4,22 @@ module.exports = {
         filename: 'index.js',
         library: 'sub0',
         libraryTarget: 'umd',
-        umdNamedDefine: true
+        umdNamedDefine: true,
+        globalObject: 'this'
+    },
+    optimization: {
+        minimize: false
     },
     resolve: {
         extensions: ['.ts']
+    },
+    externals: {
+        '@angular/core': {
+            root: ['ng', 'core'],
+            commonjs: '@angular/core',
+            commonjs2: '@angular/core',
+            amd: '@angular/core'
+        }
     },
     module: {
         rules: [

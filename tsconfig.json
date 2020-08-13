@@ -3,12 +3,16 @@
     "outDir": "./dist/",
     "target": "ES2015",
     "module": "commonjs",
+    "lib": [ "es2015", "dom" ],
     "moduleResolution": "node",
     "sourceMap": true,
     "noImplicitAny": true,
     "declaration": true,
     "experimentalDecorators": true
   },
+  "files": [
+    "@types/angular.core.d.ts"
+  ],
   "include": ["src"],
   "exclude": ["src/*.spec.ts"]
 }

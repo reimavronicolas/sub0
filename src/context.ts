@@ -1,6 +1,7 @@
 import { SubscriptionPool } from './subscriptionPool';
 import { Strategy, Subscribable } from "./types";
 import { angularDefaultStrategy } from "./strategies";
+import { VERSION } from "@angular/core";
 
 export namespace context {
 
@@ -11,6 +12,9 @@ export namespace context {
   }
 
   export function extend<T>(component: any): SubscriptionPool {
+
+    console.log(VERSION?.full);
+
     let pool = new SubscriptionPool();
 
     proxy(component, ((original: () => void) => {
