@@ -1,14 +1,14 @@
 {
   "compilerOptions": {
-    "outDir": "./dist/",
+    "rootDir": "src",
     "target": "ES2015",
-    "module": "commonjs",
+    "module": "ES2015",
     "moduleResolution": "node",
     "sourceMap": true,
     "noImplicitAny": true,
     "declaration": true,
-    "experimentalDecorators": true
+    "declarationDir": "dist"
   },
   "include": ["src"],
-  "exclude": ["src/*.spec.ts"]
+  "exclude": ["src/*.spec.ts", "node_modules"]
 }

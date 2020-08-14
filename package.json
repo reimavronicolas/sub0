@@ -8,17 +8,15 @@
     "url": "https://github.com/reimavronicolas/sub0"
   },
   "devDependencies": {
-    "@types/node": "^14.0.27",
+    "@rollup/plugin-commonjs": "^15.0.0",
+    "@rollup/plugin-typescript": "^5.0.2",
     "alsatian": "^3.2.1",
-    "ts-loader": "^8.0.2",
-    "ts-node": "^8.10.2",
-    "typescript": "^3.9.7",
-    "webpack": "^4.44.1",
-    "webpack-cli": "^3.3.12"
+    "rollup": "^2.23.1",
+    "tslib": "^2.0.1",
+    "typescript": "^3.9.7"
   },
   "scripts": {
-    "build:dev": "rm -rf ./dist && webpack --config ./webpack.config.js --mode development",
-    "build:prod": "rm -rf ./dist && webpack --config ./webpack.config.js --mode production",
+    "build": "rm -rf ./dist && rollup -c && node rollup-declarations",
     "test": "ts-node --project ./tsconfig.json ./run-test"
   },
   "keywords": [
@@ -31,5 +29,6 @@
   "license": "ISC",
   "files": [
     "dist"
-  ]
+  ],
+  "dependencies": {}
 }
