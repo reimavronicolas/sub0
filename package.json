@@ -12,7 +12,9 @@
     "typescript": "^3.9.7"
   },
   "scripts": {
-    "build": "node .build/build",
+    "clean": "rm -rf tmp && rm -rf dist",
+    "compile": "tsc -p tsconfig.prod.json",
+    "build": "npm run clean && node rollup && npm run compile && rm -rf tmp",
     "test": "ts-node --project ./tsconfig.json ./run-test"
   },
   "keywords": [

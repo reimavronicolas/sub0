@@ -1,4 +1,4 @@
-import { Strategy } from "./types";
+import { Strategy } from './types';
 
 export const angularDefaultStrategy: Strategy = (component) => {
   return {

@@ -1,4 +1,4 @@
-import { Subscribable, Unsubscribable } from "./types";
+import { Subscribable, Unsubscribable } from './types';
 
 export class Subservable<T> implements Subscribable<T>, Unsubscribable {
   constructor(private observable: Subscribable<T>) {

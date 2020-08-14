@@ -1,6 +1,7 @@
 import { SubscriptionPool } from './subscriptionPool';
-import { Strategy, Subscribable } from "./types";
-import { angularDefaultStrategy } from "./strategies";
+import { Strategy, Subscribable } from './types';
+import { angularDefaultStrategy } from './strategies';
+import { VERSION } from '@angular/core';
 
 export namespace context {
 
@@ -11,6 +12,13 @@ export namespace context {
   }
 
   export function extend<T>(component: any): SubscriptionPool {
+
+    if (typeof window !== 'undefined' && window['ng']) {
+      import('@angular/core').then(module => console.log(module.VERSION.full));
+    }
+
+    console.log(VERSION.full);
+
     let pool = new SubscriptionPool();
 
     proxy(component, ((original: () => void) => {

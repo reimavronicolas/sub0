@@ -9,10 +9,12 @@ fs.readdir('src', function (err, filenames) {
         return;
     }
 
+    // matches all imports except scoped imports e.g. '@angular/test'
+    const moduleImportMatch = /import\s+?(?:(?:(?:[\w*\s{},]*)\s+from\s+?)|)(?:(?:"((?<!@).)*?")|(?:'((?<!@).)*?'))[\s]*?(?:;|$|)/mg;
+
     const out = filenames.filter(f => f.endsWith('.ts') && f.indexOf('index.ts'))
         .map((f) => fs.readFileSync('./src/' + f, fileEncoding))
-        .map((content) => content.split(eol).filter(line => line.indexOf('import ') === -1))
-        .map((lines) => lines.join(eol))
+        .map(content => content.replace(moduleImportMatch, ''))
         .sort((a) => {
             //make sure const/class and declarations are at the top of the file.
             if (a.indexOf('export const') || a.indexOf('export class') || a.indexOf('export declare')) {
@@ -21,6 +23,8 @@ fs.readdir('src', function (err, filenames) {
 
             return 0;
         });
+
+    console.log(out);
 
     fs.mkdirSync('tmp');
 

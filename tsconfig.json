@@ -2,14 +2,13 @@
   "compilerOptions": {
     "outDir": "dist",
     "target": "ES2015",
-    "module": "UMD",
+    "module": "commonjs",
     "moduleResolution": "node",
     "sourceMap": true,
-    "noImplicitAny": true,
     "declaration": true,
     "declarationDir": "dist",
     "alwaysStrict": true
   },
-  "include": ["./.src"],
+  "include": ["src", "@types"],
   "exclude": ["src/*.spec.ts", "node_modules"]
 }
