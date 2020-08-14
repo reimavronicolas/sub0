@@ -1,14 +1,15 @@
 {
   "compilerOptions": {
-    "rootDir": "src",
+    "outDir": "dist",
     "target": "ES2015",
-    "module": "ES2015",
+    "module": "UMD",
     "moduleResolution": "node",
     "sourceMap": true,
     "noImplicitAny": true,
     "declaration": true,
-    "declarationDir": "dist"
+    "declarationDir": "dist",
+    "alwaysStrict": true
   },
-  "include": ["src"],
+  "include": ["./.src"],
   "exclude": ["src/*.spec.ts", "node_modules"]
 }

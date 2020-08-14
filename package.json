@@ -8,15 +8,11 @@
     "url": "https://github.com/reimavronicolas/sub0"
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^15.0.0",
-    "@rollup/plugin-typescript": "^5.0.2",
     "alsatian": "^3.2.1",
-    "rollup": "^2.23.1",
-    "tslib": "^2.0.1",
     "typescript": "^3.9.7"
   },
   "scripts": {
-    "build": "rm -rf ./dist && rollup -c && node rollup-declarations",
+    "build": "node .build/build",
     "test": "ts-node --project ./tsconfig.json ./run-test"
   },
   "keywords": [
