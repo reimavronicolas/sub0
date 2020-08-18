@@ -71,5 +71,3 @@ Add this somewhere globally (e.g. app.module.ts):
 ```ts
 context.useStrategy(angularIvyEagerLifecycleHooksStrategy);
 ```
-
-
