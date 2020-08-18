@@ -7,8 +7,13 @@
     "sourceMap": true,
     "declaration": true,
     "declarationDir": "dist",
-    "alwaysStrict": true
+    "alwaysStrict": true,
+    "experimentalDecorators": true
   },
+  "ts-node": {
+    "files": true
+  },
+  "files": ["@types/angular.core.d.ts"],
   "include": ["src", "@types"],
   "exclude": ["src/*.spec.ts", "node_modules"]
 }

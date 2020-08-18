@@ -12,7 +12,7 @@ fs.readdir('src', function (err, filenames) {
     // matches all imports except scoped imports e.g. '@angular/test'
     const moduleImportMatch = /import\s+?(?:(?:(?:[\w*\s{},]*)\s+from\s+?)|)(?:(?:"((?<!@).)*?")|(?:'((?<!@).)*?'))[\s]*?(?:;|$|)/mg;
 
-    const out = filenames.filter(f => f.endsWith('.ts') && f.indexOf('index.ts'))
+    const out = filenames.filter(f => f.endsWith('.ts') && f.indexOf('index.ts') && !f.endsWith('.spec.ts'))
         .map((f) => fs.readFileSync('./src/' + f, fileEncoding))
         .map(content => content.replace(moduleImportMatch, ''))
         .sort((a) => {
@@ -23,8 +23,6 @@ fs.readdir('src', function (err, filenames) {
 
             return 0;
         });
-
-    console.log(out);
 
     fs.mkdirSync('tmp');
 

@@ -13,7 +13,7 @@ export class Subservable<T> implements Subscribable<T>, Unsubscribable {
             error?: (error: any) => void,
             complete?: () => void): Unsubscribable {
 
-    if ((observerOrNext as ((value: T) => void)).length) {
+    if ((observerOrNext as ((value: T) => void))?.length) {
       this.subscription = this.observable.subscribe(observerOrNext as ((value: T) => void), error, complete);
     } else {
       this.subscription = this.observable.subscribe(observerOrNext);
