@@ -60,9 +60,9 @@ context.useStrategy((component) => {
 #### [IMPORTANT] Angular 9 - 10.0.4
 
 From Sub0 v0.3 onwards, it now automatically detects your Angular version and chooses the appropriate strategy. I.e. no additional
-config needed. We recommend using v0.3 or higher.
+config needed. We recommend using Sub0 v0.3 or higher.
 
-Sub0 versions below 0.3 requires additional configuration to work with Angular versions 9 to 10.0.4.
+All Sub0 versions below 0.3 requires additional configuration to work with Angular versions 9 to 10.0.4.
 With these versions, sub0 has to be configured manually to use the `angularIvyEagerLifecycleHooksStrategy` which makes
 use of the Angular private API. Without this it will not work. This is due to a bug in Angular which reads lifecycle
 hooks eagerly, making it impossible to extend/add lifcycle hooks dynamically.
