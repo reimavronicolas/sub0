@@ -1,14 +1,19 @@
 {
   "compilerOptions": {
-    "outDir": "./dist/",
+    "outDir": "dist",
     "target": "ES2015",
     "module": "commonjs",
     "moduleResolution": "node",
     "sourceMap": true,
-    "noImplicitAny": true,
     "declaration": true,
+    "declarationDir": "dist",
+    "alwaysStrict": true,
     "experimentalDecorators": true
   },
-  "include": ["src"],
-  "exclude": ["src/*.spec.ts"]
+  "ts-node": {
+    "files": true
+  },
+  "files": ["@types/angular.core.d.ts"],
+  "include": ["src", "@types"],
+  "exclude": ["src/*.spec.ts", "node_modules"]
 }
