@@ -1,4 +1,4 @@
-import { Subscribable, Unsubscribable } from "./types";
+import { Subscribable, Unsubscribable } from './types';
 
 export class Subservable<T> implements Subscribable<T>, Unsubscribable {
   constructor(private observable: Subscribable<T>) {
@@ -13,7 +13,7 @@ export class Subservable<T> implements Subscribable<T>, Unsubscribable {
             error?: (error: any) => void,
             complete?: () => void): Unsubscribable {
 
-    if ((observerOrNext as ((value: T) => void)).length) {
+    if ((observerOrNext as ((value: T) => void))?.length) {
       this.subscription = this.observable.subscribe(observerOrNext as ((value: T) => void), error, complete);
     } else {
       this.subscription = this.observable.subscribe(observerOrNext);

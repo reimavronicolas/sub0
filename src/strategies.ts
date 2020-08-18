@@ -1,4 +1,13 @@
-import { Strategy } from "./types";
+import { Strategy } from './types';
+
+export const defaultStrategy: Strategy = (fn) => {
+  return {
+    onDestroy: {
+      fnName: 'onDestroy',
+      target: fn.constructor.prototype,
+    }
+  }
+}
 
 export const angularDefaultStrategy: Strategy = (component) => {
   return {

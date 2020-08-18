@@ -1,5 +1,5 @@
-import { Subscribable, Unsubscribable } from "./types";
-import { Subservable } from "./subservable";
+import { Subscribable, Unsubscribable } from './types';
+import { Subservable } from './subservable';
 
 export class SubscriptionPool {
   private subscriptions: Unsubscribable[] = [];
