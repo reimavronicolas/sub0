@@ -59,7 +59,7 @@ context.useStrategy((component) => {
 
 #### [IMPORTANT] Angular 9 - 10.0.4
 
-From Sub0 v0.3, it now automatically detects your Angular version and chooses the appropriate strategy. I.e. no additional
+From Sub0 v0.3 onwards, it now automatically detects your Angular version and chooses the appropriate strategy. I.e. no additional
 config needed. We recommend using v0.3 or higher.
 
 Sub0 versions below 0.3 requires additional configuration to work with Angular versions 9 to 10.0.4.
