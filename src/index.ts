@@ -5,5 +5,6 @@ export {
 } from './types'
 
 export { SubscriptionPool } from './subscriptionPool'
-export { context } from './context'
+export { context, Context } from './context'
 export { angularDefaultStrategy, angularIvyEagerLifecycleHooksStrategy } from './strategies'
+export { observe } from './observe'
