@@ -1,5 +1,5 @@
 import { Expect, Setup, Test, TestFixture } from 'alsatian';
-import { context } from "./context";
+import { Context, context } from './context';
 import { Subscribable, Unsubscribable } from "./types";
 import { SubscriptionPool } from "./subscriptionPool";
 
@@ -56,5 +56,23 @@ export class ContextSpec {
     this.testObj.onDestroy();
     Expect(this.testObj.unsubScribed).toBe(true);
     Expect(this.testObj.destroyed).toBe(true);
+  }
+
+  @Test()
+  public testContextExtensionError(): void {
+   const ctx = new Context();
+
+    Expect(()=> ctx.subscribe(this.testObj)).toThrowError(Error, Context.ExtensionError);
+  }
+
+  @Test()
+  public testContextInstance(): void {
+    const ctx = new Context();
+    const testObj = new TestObj();
+    ctx.extend(testObj);
+    ctx.subscribe(testObj);
+    testObj.onDestroy();
+    Expect(testObj.unsubScribed).toBe(true);
+    Expect(testObj.destroyed).toBe(true);
   }
 }

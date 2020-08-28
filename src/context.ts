@@ -1,40 +1,65 @@
-import { SubscriptionPool} from './subscriptionPool';
+import { SubscriptionPool } from './subscriptionPool';
 import { Strategy, Subscribable, Unsubscribable } from './types';
-import { SubscriptionPools } from "./subscriptionPools";
-import { strategy, setStrategy } from "./strategy";
-import { Subservable } from "./subservable";
+import { SubscriptionPools } from './subscriptionPools';
+import { SemVer } from './semVer';
+import { angularDefaultStrategy, angularIvyEagerLifecycleHooksStrategy, defaultStrategy } from './strategies';
+import { Wait } from './wait';
 
-export class Context<T> implements Subscribable<T> {
+export class Context {
+  public static ExtensionError = 'Component has not been extended yet.';
+
   private pool: SubscriptionPool;
 
-  constructor(private component?: any) {
-    if (this.component) {
-      this.extend();
+  constructor(component?: any) {
+    if (component) {
+      this.extend(component);
     }
   }
 
-  public setInstance(component: any) {
-    this.component = component;
-
-    this.extend();
+  public get extend(): (component: any) => void {
+    return (component => this.pool = context.extend(component)).bind(this);
   }
 
-  private extend() {
-    this.pool = context.extend(this.component);
+  public get observe(): <T>(observable: Subscribable<T>) => Subscribable<T> {
+    return (<T>(observable: Subscribable<T>) => {
+      if (!this.pool) {
+        throw Error(Context.ExtensionError);
+      }
+
+      return this.pool.observe(observable);
+    }).bind(this);
   }
 
-  subscribe(observer?: any): Unsubscribable;
-  subscribe(next?: (value: T) => void, error?: (error: any) => void, complete?: () => void): Unsubscribable;
-  subscribe(observer?: any, error?: (error: any) => void, complete?: () => void): Unsubscribable  {
-    return;
+  public get subscribe(): <T>(observable: Subscribable<T>,
+                              next?: (value: T) => void,
+                              error?: (error: any) => void,
+                              complete?: () => void) => Unsubscribable {
+    return (<T>(observable, next, error, complete) => {
+      if (!this.pool) {
+        throw Error(Context.ExtensionError);
+      }
+
+      return this.pool.subscribe(observable, next, error, complete);
+    }).bind(this);
+  }
+
+  public get add(): (subscription: Unsubscribable) => void {
+    return (subscription => {
+      if (!this.pool) {
+        throw Error(Context.ExtensionError);
+      }
+
+      return this.pool.add(subscription);
+    }).bind(this);
   }
 }
 
 export namespace context {
   let pools: SubscriptionPools;
+  let strategy: Strategy;
 
   export function useStrategy(fn: Strategy) {
-    setStrategy(strategy);
+    strategy = fn;
   }
 
   export function extend<T>(component: any): SubscriptionPool {
@@ -51,51 +76,11 @@ export namespace context {
     return pool;
   }
 
-/*  export function observe<T>(component: any): (observable: Subscribable<T>) => Subscribable<T> {
-    const pool = context.extend(component);
+  export function observe<T>(component: any): (observable: Subscribable<T>) => Subscribable<T> {
+    const pool = extend(component);
 
     return pool.observe.bind(pool);
-  }*/
-
-  export function init<T>(): <T>(observable?: Subscribable<T>) => Context<T> {
-    const ctx = new Context();
-    return observe.bind(ctx);
   }
-
-  export function observe<T>(this: Context<T>, observable?: Subscribable<T>): Context<T> {
-    if (observable) {
-      const subscribable = this['pool'].observe(observable);
-      this.subscribe = subscribable.subscribe.bind(subscribable);
-    }
-
-    return this;
-  }
-
-/*
-  function init() {
-    if (typeof window !== 'undefined' && window['ng']) {
-      import('@angular/core')
-        .then((module) => {
-          if (strategy) return;
-
-          if (module.VERSION?.full) {
-            const currentVersion = SemVer.version(module.VERSION.full);
-            if (currentVersion.gteq('9.0.0') && currentVersion.lteq('10.0.4')) {
-              useStrategy(angularIvyEagerLifecycleHooksStrategy);
-            }
-          }
-        })
-        .finally(() => {
-          if (!strategy) {
-            useStrategy(angularDefaultStrategy);
-          }
-        })
-    } else {
-      if (!strategy) {
-        useStrategy(defaultStrategy);
-      }
-    }
-  }*/
 
   function proxy<T>(target: any, fn: (original: () => void) => void): void {
     const onDestroy = strategy(target).onDestroy;
@@ -108,39 +93,33 @@ export namespace context {
     onDestroy.target[onDestroy.fnName] = fn;
   }
 
-  // init();
+  function init() {
 
+    useStrategy(defaultStrategy);
 
-  /*function getStrategy(callback: (strategy: Strategy) => void) {
-    if (strategy) {
-      callback(strategy);
-      return;
-    }
+    const wait = new Wait(200);
 
-    if (typeof window !== 'undefined' && window['ng']) {
-      import('@angular/core')
-        .then((module) => {
-          if (strategy) return;
+    wait.until(
+      () => typeof window !== 'undefined' && window['ng'],
+      () => {
+        import('@angular/core')
+          .then((module) => {
+            if (strategy) return;
 
-          if (module.VERSION?.full) {
-            const currentVersion = SemVer.version(module.VERSION.full);
-            if (currentVersion.gteq('9.0.0') && currentVersion.lteq('10.0.4')) {
-              strategy = angularIvyEagerLifecycleHooksStrategy;
+            if (module.VERSION?.full) {
+              const currentVersion = SemVer.version(module.VERSION.full);
+              if (currentVersion.gteq('9.0.0') && currentVersion.lteq('10.0.4')) {
+                useStrategy(angularIvyEagerLifecycleHooksStrategy);
+              }
             }
-          }
-        })
-        .finally(() => {
-          if (!strategy) {
-            useStrategy(angularDefaultStrategy);
-          }
+          })
+          .finally(() => {
+            if (!strategy) {
+              useStrategy(angularDefaultStrategy);
+            }
+          })
+      });
+  }
 
-          callback(strategy);
-        })
-    } else {
-      if (!strategy) {
-        useStrategy(defaultStrategy);
-        callback(strategy);
-      }
-    }
-  }*/
+  init();
 }
